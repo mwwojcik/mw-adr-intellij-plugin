@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>mw.mw-adr-intellij-plugin</id>
+    <name>MW ADR Intelij Plugin</name>
+    <vendor email="mw.wojcik@gmail.com" url="http://github.com/mwwwojcik">mw</vendor>
+
+    <description><![CDATA[
+    Generates simple ADR Site<br>
+    ]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+       <!-- <action id="EditorBasics.ImportObjectsToDiagramAction"
+                class="mw.adr.CreateNewADRAction"
+                text="Import to diagram"
+                description="Replaces selected text with 'Replacement'."
+        >
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt shift M"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>-->
+
+        <group id="NewAdrFile" text="New ADR File">
+            <action id="NewADRFile" class="mw.adr.CreateNewADRAction"/>
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </group>
+
+    </actions>
+</idea-plugin>
