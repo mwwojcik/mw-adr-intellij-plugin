@@ -5,8 +5,6 @@ import com.intellij.ide.actions.CreateFromTemplateAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiFileFactory;
-import mw.adr.command.ADR;
 import mw.adr.command.CreateNewADRCommand;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;

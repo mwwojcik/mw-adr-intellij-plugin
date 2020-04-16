@@ -25,8 +25,12 @@
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>-->
 
-        <group id="NewAdrFile" text="New ADR File">
+        <group id="NewAdrFile" text="Create ADR">
             <action id="NewADRFile" class="mw.adr.CreateNewADRAction"/>
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewAdlFile"/>
+        </group>
+        <group id="NewAdlFile" text="Create ADL">
+            <action id="NewADLFile" class="mw.adr.CreateNewADLAction"/>
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
         </group>
 

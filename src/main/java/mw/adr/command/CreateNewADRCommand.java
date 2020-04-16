@@ -1,12 +1,11 @@
 package mw.adr.command;
 
 import com.intellij.ide.util.EditorHelper;
-import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiFileFactory;
+import mw.adr.model.ADR;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

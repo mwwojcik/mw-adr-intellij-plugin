@@ -1,4 +1,4 @@
-package mw.adr.command;
+package mw.adr.model;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
