@@ -27,11 +27,16 @@ public class CreateNewADLAction extends SimplifiedCreateFromTemplateAction<PsiFi
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
         var selectedElements = ProjectView.getInstance(e.getProject()).getCurrentProjectViewPane().getSelectedElements();
-        if(selectedElements!=null && selectedElements.length>0){
+        if(selectedElements!=null && selectedElements.length>0&&isDir(selectedElements[0])){
             var dir=(PsiDirectory)selectedElements[0];
             CreateADLCommand.from(dir).execute();
         }
     }
+
+    private Boolean isDir(Object param) {
+     return param instanceof PsiDirectory ;
+     }
+
 
     @Nullable
   @Override
