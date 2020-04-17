@@ -18,11 +18,11 @@ import java.nio.charset.StandardCharsets;
 public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile>{
 
     public CreateNewADRAction(){
-        super("New ADR File", "Creates new ADR file", null);
+        super("Create ADR", "Creates ADR file", null);
     }
 
     public CreateNewADRAction(@Nls(capitalization = Nls.Capitalization.Title) String text, @Nls(capitalization = Nls.Capitalization.Sentence) String description, Icon icon) {
-        super("New ADR File", "Creates new ADR file", null);
+        super("Create ADR", "Creates ADR file", null);
     }
 
     @Nullable

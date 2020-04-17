@@ -47,20 +47,17 @@ public class ADLRecord implements Comparable<ADLRecord> {
 
   private static String toDate(List<String> contentLines) {
     String s = withPattern(contentLines, WFL_ADR_DATE).orElse("");
-    s=s.substring(s.indexOf("("));
-    return s.substring(s.indexOf("<")+1,s.indexOf(">"));
+    return s.substring(s.indexOf(":")+1);
   }
 
   private static String toTitle(List<String> contentLines) {
     String s = withPattern(contentLines, WFL_ADR_TITLE).orElse("");
-    s=s.substring(s.indexOf("("));
-    return s.substring(s.indexOf("<")+1,s.indexOf(">"));
+    return s.substring(s.indexOf(":")+1);
   }
 
   private static String toAuthor(List<String> contentLines) {
     String s = withPattern(contentLines, WFL_ADR_AUTHOR).orElse("");
-    s=s.substring(s.indexOf("("));
-    return s.substring(s.indexOf("<")+1,s.indexOf(">"));
+    return s.substring(s.indexOf(":")+1);
   }
 
   private static int toId(PsiFile p) {
@@ -84,6 +81,6 @@ public class ADLRecord implements Comparable<ADLRecord> {
   }
 
   String toLine() {
-    return String.format("\n - %s %s [%s](%s)", idS, date, title, filename);
+    return String.format("\n - %s  %s  [%s](%s)", idS, date, title, filename);
   }
 }

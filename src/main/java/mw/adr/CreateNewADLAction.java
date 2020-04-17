@@ -2,6 +2,8 @@ package mw.adr;
 
 import com.intellij.ide.actions.CreateFileFromTemplateDialog;
 import com.intellij.ide.actions.CreateFromTemplateAction;
+import com.intellij.ide.projectView.ProjectView;
+import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
@@ -12,14 +14,23 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class CreateNewADLAction extends CreateFromTemplateAction<PsiFile>{
+public class CreateNewADLAction extends SimplifiedCreateFromTemplateAction<PsiFile>{
 
     public CreateNewADLAction(){
-        super("New ADL File", "Creates new ADL file", null);
+        super("Create ADL", "Creates ADL file", null);
     }
 
     public CreateNewADLAction(@Nls(capitalization = Nls.Capitalization.Title) String text, @Nls(capitalization = Nls.Capitalization.Sentence) String description, Icon icon) {
-        super("New ADL File", "Creates new ADL file", null);
+        super("Create ADL", "Creates ADL file", null);
+    }
+
+    @Override
+    public void actionPerformed(@NotNull AnActionEvent e) {
+        var selectedElements = ProjectView.getInstance(e.getProject()).getCurrentProjectViewPane().getSelectedElements();
+        if(selectedElements!=null && selectedElements.length>0){
+            var dir=(PsiDirectory)selectedElements[0];
+            CreateADLCommand.from(dir).execute();
+        }
     }
 
     @Nullable
@@ -42,6 +53,8 @@ public class CreateNewADLAction extends CreateFromTemplateAction<PsiFile>{
       PsiDirectory directory, @NotNull String newName, String templateName) {
     return "CreateNewADLAction";
   }
+
+
 }
 
 

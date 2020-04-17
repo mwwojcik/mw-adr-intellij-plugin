@@ -52,7 +52,7 @@ public class CreateADRCommand {
   }
 
   private DateTimeFormatter dateFormatter() {
-    return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+    return DateTimeFormatter.ISO_LOCAL_DATE;//DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
   }
 
   private int highestIndex() {

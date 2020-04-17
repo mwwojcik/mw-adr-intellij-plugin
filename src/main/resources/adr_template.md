@@ -1,9 +1,10 @@
-[comment]: <>(*************Metryka**Nie*Modyfikowac**************)
-[comment]: <>(wfl-adr-title<ADR_TITLE>)
-[comment]: <>(wfl-adr-date<ADR_CREATE_DATE>)
-[comment]: <>(wfl-adr-author<ADR_AUTHOR>)
-[comment]: <>(***************************************************)
-
+<!--
+*************Metryka**Nie*Modyfikowac**************
+wfl-adr-title:ADR_TITLE
+wfl-adr-date:ADR_CREATE_DATE
+wfl-adr-author:ADR_AUTHOR
+***************************************************
+-->
 # ADR_ID. ADR_TITLE
 
 Data: ADR_CREATE_DATE
