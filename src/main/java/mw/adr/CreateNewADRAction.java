@@ -5,13 +5,15 @@ import com.intellij.ide.actions.CreateFromTemplateAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
-import mw.adr.command.CreateNewADRCommand;
+import mw.adr.command.CreateADRCommand;
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile>{
 
@@ -30,15 +32,16 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile>{
 
         var resTemplate = this.getClass().getClassLoader().getResourceAsStream("adr_template.md");
         try {
-            var content = new String(resTemplate.readAllBytes());
-            return CreateNewADRCommand.from(content,name,dir).execute();
+            //Reader reader = new InputStreamReader(resTemplate, "UTF-8");
+            String content = IOUtils.toString(resTemplate, StandardCharsets.UTF_8.name());
+
+            //var content = new String(resTemplate.readAllBytes());
+            return CreateADRCommand.from(content,name,dir).execute();
 
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-        //final PsiFileFactory factory = PsiFileFactory.getInstance(project);
-        //final PsiFile file = factory.createFileFromText(language, text);
-        //return null;
+
   }
 
   @Override

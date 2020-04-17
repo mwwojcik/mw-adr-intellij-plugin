@@ -6,13 +6,11 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
 import mw.adr.command.CreateADLCommand;
-import mw.adr.command.CreateNewADRCommand;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class CreateNewADLAction extends CreateFromTemplateAction<PsiFile>{
 

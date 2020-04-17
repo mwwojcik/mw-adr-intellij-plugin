@@ -13,21 +13,21 @@ import java.time.format.FormatStyle;
 import java.util.Arrays;
 import java.util.OptionalInt;
 
-public class CreateNewADRCommand {
+public class CreateADRCommand {
 
   private String templateContent;
   private String title;
   private PsiDirectory root;
 
-  public CreateNewADRCommand(String templateContent, String title, PsiDirectory dir) {
+  public CreateADRCommand(String templateContent, String title, PsiDirectory dir) {
 
     this.templateContent = templateContent;
     this.title = title;
     this.root = dir;
   }
 
-  public static CreateNewADRCommand from(String templateContent, String title, PsiDirectory dir) {
-    return new CreateNewADRCommand(templateContent, title, dir);
+  public static CreateADRCommand from(String templateContent, String title, PsiDirectory dir) {
+    return new CreateADRCommand(templateContent, title, dir);
   }
 
   public PsiFile execute() {
@@ -57,7 +57,7 @@ public class CreateNewADRCommand {
 
   private int highestIndex() {
     OptionalInt highestIndex;
-    highestIndex = Arrays.stream(root.getFiles()).mapToInt(CreateNewADRCommand::toInt).max();
+    highestIndex = Arrays.stream(root.getFiles()).mapToInt(CreateADRCommand::toInt).max();
     return (highestIndex.isPresent() ? highestIndex.getAsInt() : 0);
   }
 

@@ -34,14 +34,14 @@ public class CreateADLCommand {
   public PsiFile execute() {
     var adl = ADLDocument.from(adrRecords());
 
-    var index = root.findFile(adl.filename());
+    var file = root.findFile(adl.filename());
 
-    if(index!=null){
-      index.delete();
+    if(file==null){
+      file = root.createFile(adl.filename());
     }
 
-    var file = root.createFile(adl.filename());
     var document = PsiDocumentManager.getInstance(root.getProject()).getDocument(file);
+
     document.setText(adl.toContent());
     FileDocumentManager.getInstance().saveDocument(document);
     EditorHelper.openInEditor(file);
