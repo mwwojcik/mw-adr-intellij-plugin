@@ -1,9 +1,8 @@
-package mw.adr;
+package mw.adr.intelij;
 
 import com.intellij.CommonBundle;
 import com.intellij.ide.IdeView;
 import com.intellij.ide.actions.CreateFileFromTemplateDialog;
-import com.intellij.ide.actions.CreateFromTemplateAction;
 import com.intellij.ide.actions.TestDialogBuilder;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.*;
@@ -27,20 +26,20 @@ import javax.swing.*;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public abstract class SimplifiedCreateFromTemplateAction <T extends PsiElement> extends AnAction implements WriteActionAware {
-    protected static final Logger LOG = Logger.getInstance(CreateFromTemplateAction.class);
+public abstract class CrateFromCustomTemplateAction<T extends PsiElement> extends AnAction implements WriteActionAware {
+    protected static final Logger LOG = Logger.getInstance(com.intellij.ide.actions.CreateFromTemplateAction.class);
 
-    public SimplifiedCreateFromTemplateAction(@Nls(capitalization = Nls.Capitalization.Title) String text,
+    public CrateFromCustomTemplateAction(@Nls(capitalization = Nls.Capitalization.Title) String text,
                                     @Nls(capitalization = Nls.Capitalization.Sentence) String description, Icon icon) {
         super(text, description, icon);
     }
 
-    public SimplifiedCreateFromTemplateAction(@NotNull Supplier<String> dynamicText, @NotNull Supplier<String> dynamicDescription, Icon icon) {
+    public CrateFromCustomTemplateAction(@NotNull Supplier<String> dynamicText, @NotNull Supplier<String> dynamicDescription, Icon icon) {
         super(dynamicText, dynamicDescription, icon);
     }
 
     @Override
-    public void actionPerformed(@NotNull final AnActionEvent e) {
+    public final void actionPerformed(@NotNull final AnActionEvent e) {
         final DataContext dataContext = e.getDataContext();
 
         final IdeView view = LangDataKeys.IDE_VIEW.getData(dataContext);
@@ -63,18 +62,18 @@ public abstract class SimplifiedCreateFromTemplateAction <T extends PsiElement> 
                     @Override
                     public T createFile(@NotNull String name, @NotNull String templateName) {
                         selectedTemplateName.set(templateName);
-                        return SimplifiedCreateFromTemplateAction.this.createFile(name, templateName, dir);
+                        return CrateFromCustomTemplateAction.this.createFile(name, templateName, dir);
                     }
 
                     @Override
                     public boolean startInWriteAction() {
-                        return SimplifiedCreateFromTemplateAction.this.startInWriteAction();
+                        return CrateFromCustomTemplateAction.this.startInWriteAction();
                     }
 
                     @Override
                     @NotNull
                     public String getActionName(@NotNull String name, @NotNull String templateName) {
-                        return SimplifiedCreateFromTemplateAction.this.getActionName(dir, name, templateName);
+                        return CrateFromCustomTemplateAction.this.getActionName(dir, name, templateName);
                     }
                 },
                 createdElement -> {
@@ -92,6 +91,7 @@ public abstract class SimplifiedCreateFromTemplateAction <T extends PsiElement> 
 
     @SuppressWarnings("TestOnlyProblems")
     private static CreateFileFromTemplateDialog.Builder createDialogBuilder(Project project, DataContext dataContext) {
+
         return CreateFileFromTemplateDialog.createDialog(project);
     }
 
@@ -160,5 +160,4 @@ public abstract class SimplifiedCreateFromTemplateAction <T extends PsiElement> 
             }
         }
     }
-
 }

@@ -1,22 +1,21 @@
 package mw.adr;
 
 import com.intellij.ide.actions.CreateFileFromTemplateDialog;
-import com.intellij.ide.actions.CreateFromTemplateAction;
 import com.intellij.ide.projectView.ProjectView;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
 import mw.adr.command.CreateADLCommand;
+import mw.adr.intelij.SimplifiedCreateFromTemplateAction;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class CreateNewADLAction extends SimplifiedCreateFromTemplateAction<PsiFile>{
+public class CreateNewADLAction extends SimplifiedCreateFromTemplateAction<PsiFile> {
 
     public CreateNewADLAction(){
         super("Create ADL", "Creates ADL file", null);
@@ -40,26 +39,6 @@ public class CreateNewADLAction extends SimplifiedCreateFromTemplateAction<PsiFi
      }
 
 
-    @Nullable
-  @Override
-  protected PsiFile createFile(String name, String templateName, PsiDirectory dir) {
-        return null;
-  }
-
-  @Override
-  protected void buildDialog(
-      Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
-      builder
-              .setTitle("ADL")
-              .addKind("ADL", null, "adr_template.md");
-    System.out.println();
-  }
-
-  @Override
-  protected String getActionName(
-      PsiDirectory directory, @NotNull String newName, String templateName) {
-    return "CreateNewADLAction";
-  }
 
 
 }
