@@ -31,7 +31,7 @@ public class CreateADLCommand {
     return new CreateADLCommand(root);
   }
 
-  public PsiFile execute() {
+  public void execute() {
     var adl = ADLDocument.from(adrRecords());
 
     var file = root.findFile(adl.filename());
@@ -45,7 +45,7 @@ public class CreateADLCommand {
     document.setText(adl.toContent());
     FileDocumentManager.getInstance().saveDocument(document);
     EditorHelper.openInEditor(file);
-    return file;
+
   }
 
   private List<ADLRecord> adrRecords() {
