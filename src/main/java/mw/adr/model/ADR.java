@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class ADR {
-
+  public static String NAMING_PATTERN="[PRJ/TCH]-[ESB/P4E]-[IDM/BPM]-name";
   private String template;
   private String createDate;
   private Integer id;

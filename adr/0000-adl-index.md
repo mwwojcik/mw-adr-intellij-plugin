@@ -1,6 +1,10 @@
 
 # Katalog decyzji architektonicznych
 
+|*[PRJ/TCH]-[ESB/P4E]-[IDM/BPM]-name*|
+|:-:|
+
+
 - [Decyzje projektowe](#decyzje-projektowe)
 - [Decyzje techniczne](#decyzje-techniczne)
 

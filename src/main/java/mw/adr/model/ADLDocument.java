@@ -29,6 +29,10 @@ public class ADLDocument {
     s.append("# Katalog decyzji architektonicznych");
     s.append("\n");
     s.append("\n");
+    s.append("|*"+ADR.NAMING_PATTERN+"*|\n");
+    s.append("|:-:|\n");
+    s.append("\n");
+    s.append("\n");
     s.append("- [Decyzje projektowe](#decyzje-projektowe)");
     s.append("\n");
     s.append("- [Decyzje techniczne](#decyzje-techniczne)");
