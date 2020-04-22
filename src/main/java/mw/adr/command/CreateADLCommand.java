@@ -11,6 +11,8 @@ import mw.adr.model.ADLRecord;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -36,7 +38,7 @@ public class CreateADLCommand {
 
     var file = root.findFile(adl.filename());
 
-    if(file==null){
+    if (file == null) {
       file = root.createFile(adl.filename());
     }
 
@@ -45,31 +47,39 @@ public class CreateADLCommand {
     document.setText(adl.toContent());
     FileDocumentManager.getInstance().saveDocument(document);
     EditorHelper.openInEditor(file);
-
   }
 
   private List<ADLRecord> adrRecords() {
     return Arrays.stream(root.getFiles())
-            .filter(it->isRecord(it))
+        .filter(it -> isRecord(it))
         .map(it -> ADLRecord.from(it))
         .sorted()
         .collect(Collectors.toList());
   }
 
   private boolean isRecord(PsiFile it) {
+    Pattern patt = ADLRecord.FILE_NAME_PATTERN;
+    Matcher matcher = patt.matcher(it.getName());
+
+    if (!matcher.matches()) {
+      return false;
+    }
+
     var ids = it.getName().substring(0, 4);
 
-    int i=0;
+    int i = 0;
 
     try {
-     i=Integer.valueOf(ids);
+      i = Integer.valueOf(ids);
     } catch (NumberFormatException e) {
       return false;
     }
-    if(i==0){
-      //index=0 only for adl
+    if (i == 0) {
+      // index=0 only for adl
       return false;
     }
     return true;
   }
+
+
 }

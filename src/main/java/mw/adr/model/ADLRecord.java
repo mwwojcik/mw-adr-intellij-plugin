@@ -8,12 +8,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ADLRecord implements Comparable<ADLRecord> {
+  public static final Pattern FILE_NAME_PATTERN=Pattern.compile("([0-9]{4})-((PRJ|TCH)(-[A-Z]{3})*).+");
   public static final String WFL_ADR_DATE = "wfl-adr-date";
   public static final String WFL_ADR_TITLE = "wfl-adr-title";
   public static final String WFL_ADR_AUTHOR = "wfl-adr-author";
   private int id;
+  private RecordType type;
+  private String category;
   private String idS;
   private String filename;
   private String date;
@@ -27,6 +32,25 @@ public class ADLRecord implements Comparable<ADLRecord> {
     this.date = date;
     this.title = title;
     this.author = author;
+    this.type=type(filename);
+    this.category=category(filename);
+  }
+
+  private RecordType type(String filename){
+    Matcher matcher=FILE_NAME_PATTERN.matcher(filename);
+    matcher.matches();
+    var txt=matcher.group(2);
+
+    if(txt.contains("-")){
+      return RecordType.valueOf(txt.split("-")[0]);
+    }
+    return RecordType.valueOf(txt);
+  }
+
+  private String category(String filename){
+    Matcher matcher=FILE_NAME_PATTERN.matcher(filename);
+    matcher.matches();
+    return matcher.group(2);
   }
 
   public static ADLRecord from(PsiFile file) {
@@ -77,10 +101,29 @@ public class ADLRecord implements Comparable<ADLRecord> {
 
   @Override
   public int compareTo(ADLRecord o) {
-    return Integer.valueOf(this.id).compareTo(Integer.valueOf(o.id));
+    return this.category.compareTo(o.category);
   }
 
   String toLine() {
     return String.format("\n - %s  %s  [%s](%s)", idS, date, title, filename);
+  }
+
+  String toRow() {
+    return String.format("\n|%s|%s|%s|[%s](%s)|", idS,category,date, title, filename);
+  }
+
+  public Boolean isPRJRecord() {
+   return type==RecordType.PRJ ;
+   }
+
+   public Boolean isTCHRecord() {
+   return type==RecordType.TCH ;
+   }
+
+
+
+  enum RecordType {
+    PRJ,
+    TCH
   }
 }

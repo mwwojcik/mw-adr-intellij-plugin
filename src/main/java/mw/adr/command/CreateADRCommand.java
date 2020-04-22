@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Arrays;
 import java.util.OptionalInt;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateADRCommand {
 
@@ -31,6 +33,7 @@ public class CreateADRCommand {
   }
 
   public PsiFile execute() {
+
     var adr = ADR.Builder.of()
             .withId(highestIndex() + 1)
             .withName(title)
@@ -46,6 +49,9 @@ public class CreateADRCommand {
     EditorHelper.openInEditor(file);
     return file;
   }
+
+
+
 
   private String author() {
     return System.getProperty("user.name");

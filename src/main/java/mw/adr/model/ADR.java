@@ -27,13 +27,22 @@ public class ADR {
   }
 
   public String filename(){
-    return idS()+"-"+Arrays.stream(name.split(" ")).map(String::toLowerCase).collect(Collectors.joining("-"))+".md";
+
+
+    var s = idS() + "-" + toName(name);
+    return s;
+
   }
 
   private String idS() {
    return String.format("%04d", id) ;
    }
 
+  private String toName(String name) {
+    var cat=name.substring(0,name.indexOf(" ")).toUpperCase();
+    var simpleName=name.substring(name.indexOf(" ")+1).toLowerCase();
+    return cat+"-"+Arrays.stream(simpleName.split(" ")).map(String::toLowerCase).collect(Collectors.joining("-")) + ".md" ;
+  }
 
   public static class Builder {
     private String template;
