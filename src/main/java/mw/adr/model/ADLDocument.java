@@ -1,5 +1,6 @@
 package mw.adr.model;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class ADLDocument {
@@ -27,17 +28,23 @@ public class ADLDocument {
     s.append("\n");
     s.append("# Katalog decyzji architektonicznych");
     s.append("\n");
+    s.append("\n");
+    s.append("- [Decyzje projektowe](#decyzje-projektowe)");
+    s.append("\n");
+    s.append("- [Decyzje techniczne](#decyzje-techniczne)");
+    s.append("\n");
+    s.append("\n");
     s.append("## Decyzje projektowe");
     s.append("\n");
     s.append(tabela());
-    records.stream().filter(it->it.isPRJRecord()).forEach(it -> s.append(it.toRow()));
+    records.stream().filter(it->it.isPRJRecord()).sorted(Comparator.comparing(ADLRecord::getCategory).thenComparing(ADLRecord::getId)).forEach(it -> s.append(it.toRow()));
 
 
     s.append("\n");
     s.append("## Decyzje techniczne");
     s.append("\n");
     s.append(tabela());
-    records.stream().filter(it->it.isTCHRecord()).forEach(it -> s.append(it.toRow()));
+    records.stream().filter(it->it.isTCHRecord()).sorted(Comparator.comparing(ADLRecord::getCategory).thenComparing(ADLRecord::getId)).forEach(it -> s.append(it.toRow()));
     s.append("\n");
     return s.toString();
   }

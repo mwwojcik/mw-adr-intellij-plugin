@@ -126,4 +126,12 @@ public class ADLRecord implements Comparable<ADLRecord> {
     PRJ,
     TCH
   }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public int getId() {
+    return id;
+  }
 }
