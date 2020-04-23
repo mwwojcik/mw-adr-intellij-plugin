@@ -9,6 +9,7 @@ import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import mw.adr.command.CreateADRCommand;
+import mw.adr.model.ADR;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
@@ -43,7 +44,13 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
         file = dir.createFile("error.txt");
       }
       var document = PsiDocumentManager.getInstance(dir.getProject()).getDocument(file);
-      document.setText("Nieprawidlowy wzorzec nazwy!");
+
+      StringBuilder s=new StringBuilder();
+      s.append("Nieprawidlowy wzorzec nazwy!\n");
+      s.append("Powinno być=>"+ ADR.NAMING_PATTERN+"\n");
+      s.append("Uwaga! Nazwy modułów muszą być pisane WIELKIMI LITERAMI, być trzyliterowe i oddzielone myślnikami");
+
+      document.setText(s.toString());
       FileDocumentManager.getInstance().saveDocument(document);
       EditorHelper.openInEditor(file);
       return file;
