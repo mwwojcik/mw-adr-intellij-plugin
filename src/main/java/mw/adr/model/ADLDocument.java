@@ -19,7 +19,7 @@ public class ADLDocument {
   private String table() {
     StringBuilder s=new StringBuilder("\n");
     s.append("|LP|Obszar|Data|Nazwa|\n");
-    s.append("|-|-|-|-|");
+    s.append("|----|----|----|----|");
    return s.toString() ;
    }
 
@@ -31,7 +31,7 @@ public class ADLDocument {
     s.append("\n");
     s.append("\n");
     s.append("|*"+ADR.NAMING_PATTERN+"*|\n");
-    s.append("|:-:|\n");
+    s.append("|:----:|\n");
     s.append("\n");
     s.append("\n");
     s.append("- [Decyzje projektowe](#decyzje-projektowe)");
