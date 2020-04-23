@@ -1,8 +1,10 @@
 
+|*[PRJ/TCH]-[ESB/P4E]-[IDM/BPM/...] nazwa*|
+|:-:|
+
+
 # Katalog decyzji architektonicznych
 
-|*[PRJ/TCH]-[ESB/P4E]-[IDM/BPM]-name*|
-|:-:|
 
 
 - [Decyzje projektowe](#decyzje-projektowe)
@@ -16,6 +18,8 @@
 |0005|PRJ-ESB|2020-04-22|[PRJ-ESB to jest moja ważna decyzja](0005-PRJ-ESB-to-jest-moja-ważna-decyzja.md)|
 |0007|PRJ-ESB|2020-04-22|[PRJ-ESB to moja nazwa](0007-PRJ-ESB-to-moja-nazwa.md)|
 |0010|PRJ-TCH-MDB|2020-04-23|[PRJ-TCH-MDB Wybór sposobu generowania wsdl](0010-PRJ-TCH-MDB-wybór-sposobu-generowania-wsdl.md)|
+
+
 ## Decyzje techniczne
 
 |LP|Obszar|Data|Nazwa|

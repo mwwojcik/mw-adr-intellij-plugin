@@ -16,7 +16,7 @@ public class ADLDocument {
     return new ADLDocument(records);
   }
 
-  private String tabela() {
+  private String table() {
     StringBuilder s=new StringBuilder("\n");
     s.append("|LP|Obszar|Data|Nazwa|\n");
     s.append("|-|-|-|-|");
@@ -25,6 +25,7 @@ public class ADLDocument {
 
   public String toContent() {
     StringBuilder s = new StringBuilder();
+    s.append("\n");
     s.append("\n");
     s.append("# Katalog decyzji architektonicznych");
     s.append("\n");
@@ -40,14 +41,17 @@ public class ADLDocument {
     s.append("\n");
     s.append("## Decyzje projektowe");
     s.append("\n");
-    s.append(tabela());
+    s.append("\n");
+    s.append(table());
     records.stream().filter(it->it.isPRJRecord()).sorted(Comparator.comparing(ADLRecord::getCategory).thenComparing(ADLRecord::getId)).forEach(it -> s.append(it.toRow()));
 
 
     s.append("\n");
+    s.append("\n");
     s.append("## Decyzje techniczne");
     s.append("\n");
-    s.append(tabela());
+    s.append("\n");
+    s.append(table());
     records.stream().filter(it->it.isTCHRecord()).sorted(Comparator.comparing(ADLRecord::getCategory).thenComparing(ADLRecord::getId)).forEach(it -> s.append(it.toRow()));
     s.append("\n");
     return s.toString();
