@@ -48,7 +48,9 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
       StringBuilder s=new StringBuilder();
       s.append("Nieprawidlowy wzorzec nazwy!\n");
       s.append("Powinno być=>"+ ADR.NAMING_PATTERN+"\n");
-      s.append("Uwaga! Nazwy modułów muszą być pisane WIELKIMI LITERAMI, być trzyliterowe i oddzielone myślnikami");
+      s.append("Uwaga! Separatorem poziomu (ciągi trzyliterowe, pisane Capsem i oddzielone myślnikami) od TYTUŁU (dowolny bez znaków specjalnych) jest " +
+              "SPACJA.\n");
+      s.append("Np: PRJ-SYS Wybór stosu Red Hat Fuse ; TCH-ESB Wybór bazy danych;\n");
 
       document.setText(s.toString());
       FileDocumentManager.getInstance().saveDocument(document);
