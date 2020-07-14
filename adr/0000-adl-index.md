@@ -1,4 +1,8 @@
-
+<style>
+table {
+    width:100%;
+}
+</style>
 |*[PRJ/TCH]-[ESB/P4E]-[IDM/BPM/...] nazwa*|
 |:-:|
 

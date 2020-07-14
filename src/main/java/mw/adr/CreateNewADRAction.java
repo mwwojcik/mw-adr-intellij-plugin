@@ -3,12 +3,15 @@ package mw.adr;
 import com.intellij.ide.actions.CreateFileFromTemplateDialog;
 import com.intellij.ide.actions.CreateFromTemplateAction;
 import com.intellij.ide.util.EditorHelper;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import mw.adr.command.CreateADRCommand;
+import mw.adr.command.LanguagePropertyCommand;
+import mw.adr.intelij.AppSettingsState;
 import mw.adr.model.ADR;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.Nls;
@@ -18,8 +21,11 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
 
@@ -37,8 +43,10 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
   @Nullable
   @Override
   protected PsiFile createFile(String name, String templateName, PsiDirectory dir) {
+    var configComponent = ApplicationManager.getApplication().getService(AppSettingsState.class);
+    var languagePropertyCommand = configComponent.toCommand();
 
-    if (!isNameValid(name)) {
+    if (!isNameValid(name,languagePropertyCommand.getCategories().keySet())) {
       PsiFile file = dir.findFile("error.txt");
       if (file == null) {
         file = dir.createFile("error.txt");
@@ -58,7 +66,7 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
       return file;
     }
 
-    var resTemplate = this.getClass().getClassLoader().getResourceAsStream("adr_template.md");
+    var resTemplate = this.getClass().getClassLoader().getResourceAsStream(languagePropertyCommand.getLanguage()+"_adr_template.md");
     try {
       // Reader reader = new InputStreamReader(resTemplate, "UTF-8");
       String content = IOUtils.toString(resTemplate, StandardCharsets.UTF_8.name());
@@ -71,8 +79,8 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
     }
   }
 
-  private boolean isNameValid(String name) {
-    Pattern patt = Pattern.compile("(((PRJ|TCH)(-[A-Z]{3})*)\\s(.+))");
+  private boolean isNameValid(String name, Set<String> keys) {
+    Pattern patt = Pattern.compile("((("+keys.stream().collect(Collectors.joining("|"))+")(-[A-Z]{3})*)\\s(.+))");
     Matcher matcher = patt.matcher(name);
     return matcher.matches();
   }

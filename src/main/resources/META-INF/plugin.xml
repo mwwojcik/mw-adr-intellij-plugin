@@ -12,8 +12,14 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <applicationService serviceImplementation="mw.adr.intelij.AppSettingsState"/>
     </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="tools" instance="mw.adr.intelij.AppSettingsConfigurable"
+                                 id="org.intellij.sdk.settings.AppSettingsConfigurable"
+                                 displayName="SDK: Application Settings Example"/>
+    </extensions>
+
 
     <actions>
        <!-- <action id="EditorBasics.ImportObjectsToDiagramAction"

@@ -1,6 +1,5 @@
 package mw.adr.intelij;
 
-import com.intellij.ide.actions.CreateFromTemplateAction;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.application.WriteActionAware;
 import com.intellij.openapi.diagnostic.Logger;
