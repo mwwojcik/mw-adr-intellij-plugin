@@ -17,7 +17,7 @@ public class AppSettingsConfigurable implements Configurable {
   @Nls(capitalization = Nls.Capitalization.Title)
   @Override
   public String getDisplayName() {
-    return "SDK: ADR Plugin Settings";
+    return "ADR/ADL Plugin Settings";
   }
 
   @Override
