@@ -17,3 +17,5 @@
 ![](doc/img/project-conf.png)
 
 ![](doc/img/gradle-conf.png)
+
+![](doc/img/settings.png)
