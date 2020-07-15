@@ -3,44 +3,43 @@ package mw.adr.model;
 import java.util.Comparator;
 import java.util.List;
 
-public class ADLDocument implements ArchDocument {
+public class EnglishADLDocument implements ArchDocument {
   String name = "0000-adl-index.md";
 
   private final List<ADLRecord> records;
 
-  private ADLDocument(List<ADLRecord> records) {
+  private EnglishADLDocument(List<ADLRecord> records) {
     this.records = records;
   }
 
-  public static ADLDocument from(List<ADLRecord> records) {
-    return new ADLDocument(records);
+  public static EnglishADLDocument from(List<ADLRecord> records) {
+    return new EnglishADLDocument(records);
   }
 
   private String table() {
     StringBuilder s = new StringBuilder("\n");
-    s.append("|LP|Obszar|Data|Nazwa|\n");
+    s.append("|Rownum|Area|Date|Name|\n");
     s.append("|----|----|----|----|");
     return s.toString();
   }
 
-  @Override
   public String toContent() {
     StringBuilder s = new StringBuilder();
     s.append("\n");
     s.append("\n");
-    s.append("# Katalog decyzji architektonicznych");
+    s.append("# Architecture decision log");
     s.append("\n");
     s.append("\n");
     s.append("|*" + ADR.NAMING_PATTERN + "*|\n");
     s.append("|:----:|\n");
     s.append("\n");
     s.append("\n");
-    s.append("- [Decyzje projektowe](#decyzje-projektowe)");
+    s.append("- [Strategic decisions](#strategic-decisions)");
     s.append("\n");
-    s.append("- [Decyzje techniczne](#decyzje-techniczne)");
+    s.append("- [Technical decisions](#technical-decisions)");
     s.append("\n");
     s.append("\n");
-    s.append("## Decyzje projektowe");
+    s.append("## Strategic decisions");
     s.append("\n");
     s.append("\n");
     s.append(table());
@@ -51,7 +50,7 @@ public class ADLDocument implements ArchDocument {
 
     s.append("\n");
     s.append("\n");
-    s.append("## Decyzje techniczne");
+    s.append("## Technical decisions");
     s.append("\n");
     s.append("\n");
     s.append(table());
@@ -63,7 +62,6 @@ public class ADLDocument implements ArchDocument {
     return s.toString();
   }
 
-  @Override
   public String filename() {
     return name;
   }

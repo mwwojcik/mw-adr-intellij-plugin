@@ -6,6 +6,9 @@ import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.FormBuilder;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Supports creating and managing a JPanel for the Settings Dialog. */
 public class AppSettingsComponent {
@@ -16,17 +19,34 @@ public class AppSettingsComponent {
   private final JBTextField categoriesText =
       new JBTextField("PRJ=Strategic decisions;TCH=Technical decisions");
 
+  private final Map<String, String> defaultValues = new HashMap<>();
+
+  void initDefaultValues() {
+    defaultValues.put(engButton.getText(), "PRJ=Strategic decisions;TCH=Technical decisions");
+    defaultValues.put(polButton.getText(), "PRJ=Decyzje projektowe;TCH=Decyzje techniczne");
+  }
+
+  void setDefault(ActionEvent e) {
+    var source = (JBRadioButton) e.getSource();
+    categoriesText.setText(defaultValues.get(source.getText()));
+  }
+
   public AppSettingsComponent() {
+    initDefaultValues();
 
     G.add(engButton);
     G.add(polButton);
+    engButton.addActionListener(this::setDefault);
+    polButton.addActionListener(this::setDefault);
+    categoriesText.setEnabled(false);
 
     myMainPanel =
         FormBuilder.createFormBuilder()
             .addComponent(new JLabel("Language"))
             .addComponent(engButton, 1)
             .addComponent(polButton, 1)
-            .addComponent(new JLabel("Categories (format:PRJ=Strategic decisions;TCH=Technical decisions"))
+            .addComponent(
+                new JLabel("Categories (format:PRJ=Strategic decisions;TCH=Technical decisions"))
             .addLabeledComponent(new JBLabel("Enter categories: "), categoriesText, 1, false)
             .addComponentFillVertically(new JPanel(), 0)
             .getPanel();

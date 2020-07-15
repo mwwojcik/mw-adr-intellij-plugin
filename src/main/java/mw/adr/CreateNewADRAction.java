@@ -10,7 +10,6 @@ import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import mw.adr.command.CreateADRCommand;
-import mw.adr.command.LanguagePropertyCommand;
 import mw.adr.intelij.AppSettingsState;
 import mw.adr.model.ADR;
 import org.apache.commons.io.IOUtils;
@@ -21,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,18 +44,19 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
     var configComponent = ApplicationManager.getApplication().getService(AppSettingsState.class);
     var languagePropertyCommand = configComponent.toCommand();
 
-    if (!isNameValid(name,languagePropertyCommand.getCategories().keySet())) {
+    if (!isNameValid(name, languagePropertyCommand.getCategories().keySet())) {
       PsiFile file = dir.findFile("error.txt");
       if (file == null) {
         file = dir.createFile("error.txt");
       }
       var document = PsiDocumentManager.getInstance(dir.getProject()).getDocument(file);
 
-      StringBuilder s=new StringBuilder();
+      StringBuilder s = new StringBuilder();
       s.append("Nieprawidlowy wzorzec nazwy!\n");
-      s.append("Powinno być=>"+ ADR.NAMING_PATTERN+"\n");
-      s.append("Uwaga! Separatorem poziomu (ciągi trzyliterowe, pisane Capsem i oddzielone myślnikami) od TYTUŁU (dowolny bez znaków specjalnych) jest " +
-              "SPACJA.\n");
+      s.append("Powinno być=>" + ADR.NAMING_PATTERN + "\n");
+      s.append(
+          "Uwaga! Separatorem poziomu (ciągi trzyliterowe, pisane Capsem i oddzielone myślnikami) od TYTUŁU (dowolny bez znaków specjalnych) jest "
+              + "SPACJA.\n");
       s.append("Np: PRJ-SYS Wybór stosu Red Hat Fuse ; TCH-ESB Wybór bazy danych;\n");
 
       document.setText(s.toString());
@@ -66,7 +65,10 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
       return file;
     }
 
-    var resTemplate = this.getClass().getClassLoader().getResourceAsStream(languagePropertyCommand.getLanguage()+"_adr_template.md");
+    var resTemplate =
+        this.getClass()
+            .getClassLoader()
+            .getResourceAsStream(languagePropertyCommand.getLanguage() + "_adr_template.md");
     try {
       // Reader reader = new InputStreamReader(resTemplate, "UTF-8");
       String content = IOUtils.toString(resTemplate, StandardCharsets.UTF_8.name());
@@ -80,7 +82,9 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
   }
 
   private boolean isNameValid(String name, Set<String> keys) {
-    Pattern patt = Pattern.compile("((("+keys.stream().collect(Collectors.joining("|"))+")(-[A-Z]{3})*)\\s(.+))");
+    Pattern patt =
+        Pattern.compile(
+            "(((" + keys.stream().collect(Collectors.joining("|")) + ")(-[A-Z]{3})*)\\s(.+))");
     Matcher matcher = patt.matcher(name);
     return matcher.matches();
   }

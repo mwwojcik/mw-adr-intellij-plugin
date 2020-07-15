@@ -8,6 +8,7 @@ import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import mw.adr.model.ADLDocument;
 import mw.adr.model.ADLRecord;
+import mw.adr.model.EnglishADLDocument;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,19 +23,24 @@ import java.util.stream.Collectors;
  */
 public class CreateADLCommand {
 
-  private PsiDirectory root;
+  private final PsiDirectory root;
+  private final LanguagePropertyCommand language;
 
-  public CreateADLCommand(PsiDirectory root) {
+  public CreateADLCommand(PsiDirectory root, LanguagePropertyCommand language) {
 
     this.root = root;
+    this.language = language;
   }
 
-  public static CreateADLCommand from(PsiDirectory root) {
-    return new CreateADLCommand(root);
+  public static CreateADLCommand from(PsiDirectory root, LanguagePropertyCommand language) {
+    return new CreateADLCommand(root, language);
   }
 
   public void execute() {
-    var adl = ADLDocument.from(adrRecords());
+    var adl =
+        (language.getLanguage() == LanguageEnum.POLISH)
+            ? ADLDocument.from(adrRecords())
+            : EnglishADLDocument.from(adrRecords());
 
     var file = root.findFile(adl.filename());
 
@@ -74,12 +80,7 @@ public class CreateADLCommand {
     } catch (NumberFormatException e) {
       return false;
     }
-    if (i == 0) {
-      // index=0 only for adl
-      return false;
-    }
-    return true;
+    // index=0 only for adl
+    return i != 0;
   }
-
-
 }

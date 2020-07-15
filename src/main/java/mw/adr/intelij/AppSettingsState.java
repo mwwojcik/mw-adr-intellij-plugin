@@ -38,7 +38,7 @@ public class AppSettingsState implements PersistentStateComponent<AppSettingsSta
     XmlSerializerUtil.copyBean(state, this);
   }
 
-  public LanguagePropertyCommand toCommand(){
-    return LanguagePropertyCommand.from(this.getState().categories,this.getState().language);
+  public LanguagePropertyCommand toCommand() {
+    return LanguagePropertyCommand.from(this.getState().categories, this.getState().language);
   }
 }

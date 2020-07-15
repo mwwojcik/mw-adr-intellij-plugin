@@ -1,6 +1,5 @@
 package mw.adr.model;
 
-import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 
@@ -12,18 +11,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ADLRecord implements Comparable<ADLRecord> {
-  public static final Pattern FILE_NAME_PATTERN=Pattern.compile("([0-9]{4})-((PRJ|TCH)(-[A-Z]{3})*).+");
+  public static final Pattern FILE_NAME_PATTERN =
+      Pattern.compile("([0-9]{4})-((PRJ|TCH)(-[A-Z]{3})*).+");
   public static final String WFL_ADR_DATE = "wfl-adr-date";
   public static final String WFL_ADR_TITLE = "wfl-adr-title";
   public static final String WFL_ADR_AUTHOR = "wfl-adr-author";
-  private int id;
-  private RecordType type;
-  private String category;
-  private String idS;
-  private String filename;
-  private String date;
-  private String title;
-  private String author;
+  private final int id;
+  private final RecordType type;
+  private final String category;
+  private final String idS;
+  private final String filename;
+  private final String date;
+  private final String title;
+  private final String author;
 
   private ADLRecord(int id, String idS, String filename, String date, String title, String author) {
     this.id = id;
@@ -32,23 +32,23 @@ public class ADLRecord implements Comparable<ADLRecord> {
     this.date = date;
     this.title = title;
     this.author = author;
-    this.type=type(filename);
-    this.category=category(filename);
+    this.type = type(filename);
+    this.category = category(filename);
   }
 
-  private RecordType type(String filename){
-    Matcher matcher=FILE_NAME_PATTERN.matcher(filename);
+  private RecordType type(String filename) {
+    Matcher matcher = FILE_NAME_PATTERN.matcher(filename);
     matcher.matches();
-    var txt=matcher.group(2);
+    var txt = matcher.group(2);
 
-    if(txt.contains("-")){
+    if (txt.contains("-")) {
       return RecordType.valueOf(txt.split("-")[0]);
     }
     return RecordType.valueOf(txt);
   }
 
-  private String category(String filename){
-    Matcher matcher=FILE_NAME_PATTERN.matcher(filename);
+  private String category(String filename) {
+    Matcher matcher = FILE_NAME_PATTERN.matcher(filename);
     matcher.matches();
     return matcher.group(2);
   }
@@ -71,17 +71,17 @@ public class ADLRecord implements Comparable<ADLRecord> {
 
   private static String toDate(List<String> contentLines) {
     String s = withPattern(contentLines, WFL_ADR_DATE).orElse("");
-    return s.substring(s.indexOf(":")+1);
+    return s.substring(s.indexOf(":") + 1);
   }
 
   private static String toTitle(List<String> contentLines) {
     String s = withPattern(contentLines, WFL_ADR_TITLE).orElse("");
-    return s.substring(s.indexOf(":")+1);
+    return s.substring(s.indexOf(":") + 1);
   }
 
   private static String toAuthor(List<String> contentLines) {
     String s = withPattern(contentLines, WFL_ADR_AUTHOR).orElse("");
-    return s.substring(s.indexOf(":")+1);
+    return s.substring(s.indexOf(":") + 1);
   }
 
   private static int toId(PsiFile p) {
@@ -90,7 +90,7 @@ public class ADLRecord implements Comparable<ADLRecord> {
   }
 
   private static String toIdS(PsiFile p) {
-    String name = p.getName().toString();
+    String name = p.getName();
     // Extract the first 4 characters
     return name.substring(0, 4);
   }
@@ -109,18 +109,16 @@ public class ADLRecord implements Comparable<ADLRecord> {
   }
 
   String toRow() {
-    return String.format("\n|%s|%s|%s|[%s](%s)|", idS,category,date, title, filename);
+    return String.format("\n|%s|%s|%s|[%s](%s)|", idS, category, date, title, filename);
   }
 
   public Boolean isPRJRecord() {
-   return type==RecordType.PRJ ;
-   }
+    return type == RecordType.PRJ;
+  }
 
-   public Boolean isTCHRecord() {
-   return type==RecordType.TCH ;
-   }
-
-
+  public Boolean isTCHRecord() {
+    return type == RecordType.TCH;
+  }
 
   enum RecordType {
     PRJ,

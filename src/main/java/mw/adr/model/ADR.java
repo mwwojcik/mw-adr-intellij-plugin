@@ -5,12 +5,12 @@ import java.util.stream.Collectors;
 
 public class ADR {
   public static String NAMING_PATTERN = "[PRJ/TCH]-[ESB/P4E]-[IDM/BPM] TYTUL";
-  private String template;
-  private String createDate;
-  private Integer id;
-  private String author;
-  private String name;
-  private String title;
+  private final String template;
+  private final String createDate;
+  private final Integer id;
+  private final String author;
+  private final String name;
+  private final String title;
 
   public ADR(Builder builder) {
     template = builder.template;

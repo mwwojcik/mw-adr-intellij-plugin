@@ -1,8 +1,8 @@
 package mw.adr.command;
 
 public class Category {
-  private String key;
-  private String desc;
+  private final String key;
+  private final String desc;
 
   private Category(String key, String desc) {
     this.key = key;

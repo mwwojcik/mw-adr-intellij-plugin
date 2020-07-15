@@ -9,17 +9,14 @@ import mw.adr.model.ADR;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Arrays;
 import java.util.OptionalInt;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CreateADRCommand {
 
-  private String templateContent;
-  private String title;
-  private PsiDirectory root;
+  private final String templateContent;
+  private final String title;
+  private final PsiDirectory root;
 
   public CreateADRCommand(String templateContent, String title, PsiDirectory dir) {
 
@@ -34,7 +31,8 @@ public class CreateADRCommand {
 
   public PsiFile execute() {
 
-    var adr = ADR.Builder.of()
+    var adr =
+        ADR.Builder.of()
             .withId(highestIndex() + 1)
             .withName(title)
             .withDate(dateFormatter().format(LocalDate.now()))
@@ -50,15 +48,13 @@ public class CreateADRCommand {
     return file;
   }
 
-
-
-
   private String author() {
     return System.getProperty("user.name");
   }
 
   private DateTimeFormatter dateFormatter() {
-    return DateTimeFormatter.ISO_LOCAL_DATE;//DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+    return DateTimeFormatter
+        .ISO_LOCAL_DATE; // DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
   }
 
   private int highestIndex() {
@@ -71,13 +67,11 @@ public class CreateADRCommand {
     String name = p.getName();
     // Extract the first 4 characters
     String id = name.substring(0, 4);
-    try{
+    try {
       return Integer.valueOf(id);
-    }catch (Exception e){
-      //ntd
+    } catch (Exception e) {
+      // ntd
     }
     return 0;
   }
-
-
 }
