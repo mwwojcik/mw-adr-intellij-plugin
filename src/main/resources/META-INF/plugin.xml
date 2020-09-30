@@ -20,6 +20,10 @@
                                  displayName="ADR/ADL Plugin Settings"/>
     </extensions>
 
+  <extensions defaultExtensionNs="com.intellij">
+    <liveTemplateMacro implementation="mw.livetemplate.TitleCaseMacro"/>
+  </extensions>
+
 
     <actions>
        <!-- <action id="EditorBasics.ImportObjectsToDiagramAction"
