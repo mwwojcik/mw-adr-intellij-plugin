@@ -31,6 +31,8 @@ public class TitleCaseMacro extends MacroBase {
             // Capitalize the start of every word
             text = StringUtil.toTitleCase(text);
         }
+
+       context.getPsiElementAtStartOffset();
         return new TextResult(text);
     }
 
