@@ -55,7 +55,8 @@ public class CreateNewADRAction extends CreateFromTemplateAction<PsiFile> {
       s.append("Nieprawidlowy wzorzec nazwy!\n");
       s.append("Powinno być=>" + ADR.NAMING_PATTERN + "\n");
       s.append(
-          "Uwaga! Separatorem poziomu (ciągi trzyliterowe, pisane Capsem i oddzielone myślnikami) od TYTUŁU (dowolny bez znaków specjalnych) jest "
+          "Uwaga! Separatorem poziomu (ciągi trzyliterowe, pisane Capsem i oddzielone myślnikami) od TYTULU (dowolny bez znaków"
+              + " specjalnych) jest "
               + "SPACJA.\n");
       s.append("Np: PRJ-SYS Wybór stosu Red Hat Fuse ; TCH-ESB Wybór bazy danych;\n");
 
